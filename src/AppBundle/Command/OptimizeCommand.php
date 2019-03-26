@@ -42,7 +42,7 @@ class OptimizeCommand extends ContainerAwareCommand
 
         // In case of a symlink
         $path = realpath($path);
-        $backupDir = $path.'/../../../../';
+        $backupDir = $path.'/../../../../modules';
 
         $finder = new Finder();
         $finder
@@ -58,7 +58,7 @@ class OptimizeCommand extends ContainerAwareCommand
             var_dump($file->getRealPath());
             var_dump($path);
             var_dump($backupDir.str_replace($path, '', $file->getRealPath()));
-//            copy($file->getRealPath(), $backupDir.str_replace($path, '', $file->getRealPath()));
+            copy($file->getRealPath(), $backupDir.str_replace($path, '', $file->getRealPath()));
             exit;
 //            $originalFile = $file->getRealPath();
 //            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
