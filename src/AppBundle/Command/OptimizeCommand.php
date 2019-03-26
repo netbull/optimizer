@@ -30,6 +30,9 @@ class OptimizeCommand extends ContainerAwareCommand
         ;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
@@ -61,16 +64,10 @@ class OptimizeCommand extends ContainerAwareCommand
         foreach ($finder as $file) {
             $backupFile = $backupDir.str_replace($path, '', $file->getRealPath());
             $fileSystem->copy($file->getRealPath(), $backupFile, true);
-            exit;
-            copy($file->getRealPath(), $backupFile);
-            exit;
-//            $originalFile = $file->getRealPath();
-//            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
 
-//            $optimizerChain->optimize($originalFile, $optimisedFile);
+            $originalFile = $file->getRealPath();
+            $optimizerChain->optimize($originalFile);
         }
-
-        var_dump(iterator_count($finder));
 
         $io->success('done');
     }
