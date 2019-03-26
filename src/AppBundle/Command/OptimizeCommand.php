@@ -55,7 +55,7 @@ class OptimizeCommand extends ContainerAwareCommand
         foreach ($finder as $file) {
             copy($file->getRealPath(), $backupDir.str_replace($path, '', $file->getRealPath()));
             var_dump($file->getRealPath());
-            var_dump($backupDir.$file->getFilename());
+            var_dump($backupDir.str_replace($path, '', $file->getRealPath()));
             exit;
 //            $originalFile = $file->getRealPath();
 //            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
