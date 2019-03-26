@@ -41,7 +41,8 @@ class OptimizeCommand extends ContainerAwareCommand
         }
 
         // In case of a symlink
-        $backupDir = realpath($path).'/../../../../';
+        $path = realpath($path);
+        $backupDir = $path.'/../../../../';
 
         $finder = new Finder();
         $finder
