@@ -4,6 +4,7 @@ namespace AppBundle\Command;
 
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -60,6 +61,9 @@ class OptimizeCommand extends ContainerAwareCommand
         $fileSystem->remove($backupDir);
 
         $optimizerChain = OptimizerChainFactory::create();
+
+        $progress = new ProgressBar($output);
+        $progress->start(iterator_count($finder));
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             $backupFile = $backupDir.str_replace($path, '', $file->getRealPath());
@@ -67,7 +71,10 @@ class OptimizeCommand extends ContainerAwareCommand
 
             $originalFile = $file->getRealPath();
             $optimizerChain->optimize($originalFile);
+            $progress->advance();
         }
+
+        $progress->finish();
 
         $io->success('done');
     }
