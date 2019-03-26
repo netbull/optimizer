@@ -47,7 +47,7 @@ class OptimizeCommand extends ContainerAwareCommand
         $finder
             ->in($path)
             ->files()
-            ->ignoreDotFiles()
+            ->ignoreDotFiles(true)
             ->name('*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}')
         ;
 
