@@ -47,7 +47,13 @@ class OptimizeCommand extends ContainerAwareCommand
             ->name('*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}')
         ;
 
+        var_dump($path);
+        if (is_link($path)) {
+            $path = readlink($path);
+        }
         $backupDir = realpath($path);
+        var_dump($backupDir);
+        var_dump($path);
         exit;
         $optimizerChain = OptimizerChainFactory::create();
         /** @var SplFileInfo $file */
