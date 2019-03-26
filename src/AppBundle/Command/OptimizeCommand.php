@@ -40,6 +40,9 @@ class OptimizeCommand extends ContainerAwareCommand
             $path = $this->getContainer()->getParameter('kernel.project_dir').'/tmp/';
         }
 
+        // In case of a symlink
+        $backupDir = realpath($path).'/../../../';
+
         $finder = new Finder();
         $finder
             ->in($path)
@@ -47,18 +50,10 @@ class OptimizeCommand extends ContainerAwareCommand
             ->name('*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}')
         ;
 
-        var_dump($path);
-        if (is_link($path)) {
-            $path = readlink($path);
-        }
-        $backupDir = realpath($path);
-        var_dump($backupDir);
-        var_dump($path);
-        exit;
         $optimizerChain = OptimizerChainFactory::create();
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
-            copy($file->getRealPath(), $backupDir);
+            copy($file->getRealPath(), $backupDir.$file->getFilename());
             exit;
 //            $originalFile = $file->getRealPath();
 //            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
