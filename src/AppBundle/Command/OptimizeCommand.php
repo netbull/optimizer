@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -52,11 +53,12 @@ class OptimizeCommand extends ContainerAwareCommand
             ->name('*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}')
         ;
 
+        $fileSystem = new Filesystem();
         $optimizerChain = OptimizerChainFactory::create();
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             $backupFile = $backupDir.str_replace($path, '', $file->getRealPath());
-            var_dump(realpath($backupFile));
+            $fileSystem->copy($file->getRealPath(), $backupFile, true);
             exit;
             copy($file->getRealPath(), $backupFile);
             exit;
