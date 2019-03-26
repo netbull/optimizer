@@ -54,6 +54,8 @@ class OptimizeCommand extends ContainerAwareCommand
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             copy($file->getRealPath(), $backupDir.$file->getFilename());
+            var_dump($file->getRealPath());
+            var_dump($backupDir.$file->getFilename());
             exit;
 //            $originalFile = $file->getRealPath();
 //            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
