@@ -54,6 +54,8 @@ class OptimizeCommand extends ContainerAwareCommand
         ;
 
         $fileSystem = new Filesystem();
+        $fileSystem->remove($backupDir);
+
         $optimizerChain = OptimizerChainFactory::create();
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
