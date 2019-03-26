@@ -47,10 +47,12 @@ class OptimizeCommand extends ContainerAwareCommand
             ->name('*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}')
         ;
 
+        $backupDir = realpath($path);
+        exit;
         $optimizerChain = OptimizerChainFactory::create();
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
-            var_dump($file->getRealPath());
+            copy($file->getRealPath(), );
             exit;
 //            $originalFile = $file->getRealPath();
 //            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
