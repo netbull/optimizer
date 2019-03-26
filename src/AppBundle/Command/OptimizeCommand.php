@@ -52,7 +52,7 @@ class OptimizeCommand extends ContainerAwareCommand
         $optimizerChain = OptimizerChainFactory::create();
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
-            copy($file->getRealPath(), );
+            copy($file->getRealPath(), $backupDir);
             exit;
 //            $originalFile = $file->getRealPath();
 //            $optimisedFile = $file->getPath().'/'.$file->getBasename('.' . $file->getExtension()).'_optimized.'.$file->getExtension();
