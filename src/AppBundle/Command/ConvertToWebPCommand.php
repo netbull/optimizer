@@ -61,6 +61,13 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         foreach ($finder as $file) {
             $originalFile = $file->getRealPath();
             $outputFile = str_replace(".{$file->getExtension()}", '.webp', $originalFile);
+
+            // Skip processing already processed images
+            if (file_exists($outputFile)) {
+                $progress->advance();
+                continue;
+            }
+
             $options = [];
             WebPConvert::convert($originalFile, $outputFile, $options);
             $progress->advance();
