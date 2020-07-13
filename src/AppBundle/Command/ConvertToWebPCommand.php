@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use Exception;
 use WebPConvert\Convert\Exceptions\ConversionFailedException;
 use WebPConvert\WebPConvert;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -73,6 +74,9 @@ class ConvertToWebPCommand extends ContainerAwareCommand
             try {
                 WebPConvert::convert($originalFile, $outputFile, $options);
             } catch (ConversionFailedException $e) {
+                dump($e->getMessage());
+                dump($originalFile);
+            } catch (Exception $e) {
                 dump($e->getMessage());
                 dump($originalFile);
             }
