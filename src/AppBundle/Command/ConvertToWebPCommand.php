@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use WebPConvert\Convert\Exceptions\ConversionFailedException;
 use WebPConvert\WebPConvert;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -69,7 +70,12 @@ class ConvertToWebPCommand extends ContainerAwareCommand
             }
 
             $options = [];
-            WebPConvert::convert($originalFile, $outputFile, $options);
+            try {
+                WebPConvert::convert($originalFile, $outputFile, $options);
+            } catch (ConversionFailedException $e) {
+                dump($e->getMessage());
+                dump($originalFile);
+            }
             $progress->advance();
         }
 
