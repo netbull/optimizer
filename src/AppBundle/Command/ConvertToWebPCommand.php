@@ -85,6 +85,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         $progress->finish();
 
         $io->title('GC orphaned webp');
+        $finder = new Finder();
         $finder
             ->in($path)
             ->files()
