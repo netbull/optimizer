@@ -103,7 +103,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
 
             // Skip processing already processed images
             if (!file_exists($jpg) && !file_exists($jpeg) && !file_exists($png)) {
-                unlink($originalFile);
+//                unlink($originalFile);
             }
             $progress->advance();
         }
