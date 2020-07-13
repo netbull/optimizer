@@ -39,8 +39,6 @@ class ConvertToWebPCommand extends ContainerAwareCommand
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->title('Converting images');
-
         $path = $input->getArgument('path');
         if (!$path) {
             $path = $this->getContainer()->getParameter('kernel.project_dir').'/tmp/';
@@ -50,6 +48,8 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         $path = realpath($path);
 
         $finder = new Finder();
+
+        $io->title('Converting images');
         $finder
             ->in($path)
             ->files()
@@ -82,7 +82,31 @@ class ConvertToWebPCommand extends ContainerAwareCommand
             }
             $progress->advance();
         }
+        $progress->finish();
 
+        $io->title('GC orphaned webp');
+        $finder
+            ->in($path)
+            ->files()
+            ->ignoreDotFiles(true)
+            ->name('*.webp')
+        ;
+
+        $progress = new ProgressBar($output);
+        $progress->start(iterator_count($finder));
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $originalFile = $file->getRealPath();
+            $jpg = str_replace(".{$file->getExtension()}", '.jpg', $originalFile);
+            $jpeg = str_replace(".{$file->getExtension()}", '.jpeg', $originalFile);
+            $png = str_replace(".{$file->getExtension()}", '.png', $originalFile);
+
+            // Skip processing already processed images
+            if (!file_exists($jpg) && !file_exists($jpeg) && !file_exists($png)) {
+                unlink($originalFile);
+            }
+            $progress->advance();
+        }
         $progress->finish();
 
         $io->success('done');
