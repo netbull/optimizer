@@ -62,6 +62,9 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             $originalFile = $file->getRealPath();
+            if (false === strpos($originalFile, '8420-large_default.jpg')) {
+                continue;
+            }
             $outputFile = str_replace(".{$file->getExtension()}", '.webp', $originalFile);
 
             // Skip processing already processed images
