@@ -49,50 +49,50 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         // In case of a symlink
         $path = realpath($path);
 
-        $path .= '/img/p/8/4/2/0/';
-        $finder = new Finder();
+//        $path .= '/img/p/8/4/2/0/';
+//        $finder = new Finder();
 
         $io->title('Converting images');
-        $finder
-            ->in($path)
-            ->files()
-            ->ignoreDotFiles(true)
-//            ->name('*.{jpg,jpeg,png,JPG,JPEG,PNG}')
-            ->name('8420-large_default.jpg')
-        ;
-
-        $progress = new ProgressBar($output);
-        $progress->start(iterator_count($finder));
-        /** @var SplFileInfo $file */
-        foreach ($finder as $file) {
-            $originalFile = $file->getRealPath();
-            $outputFile = str_replace(".{$file->getExtension()}", '.webp', $originalFile);
-
-            // Skip processing already processed images
-//            if (file_exists($outputFile)) {
-//                $progress->advance();
-//                continue;
+//        $finder
+//            ->in($path)
+//            ->files()
+//            ->ignoreDotFiles(true)
+////            ->name('*.{jpg,jpeg,png,JPG,JPEG,PNG}')
+//            ->name('8420-large_default.jpg')
+//        ;
+//
+//        $progress = new ProgressBar($output);
+//        $progress->start(iterator_count($finder));
+//        /** @var SplFileInfo $file */
+//        foreach ($finder as $file) {
+//            $originalFile = $file->getRealPath();
+//            $outputFile = str_replace(".{$file->getExtension()}", '.webp', $originalFile);
+//
+//            // Skip processing already processed images
+////            if (file_exists($outputFile)) {
+////                $progress->advance();
+////                continue;
+////            }
+//
+//            $options = [
+//                'converters' => ['cwebp'],
+////                'encoding' => 'lossless',
+//                'jpeg' => [
+//                    'default-quality' => 90,
+//                ],
+//            ];
+//            try {
+//                WebPConvert::convert($originalFile, $outputFile, $options, new ConsoleLogger($io));
+//            } catch (ConversionFailedException $e) {
+//                dump($e->getMessage());
+//                dump($originalFile);
+//            } catch (Exception $e) {
+//                dump($e->getMessage());
+//                dump($originalFile);
 //            }
-
-            $options = [
-                'converters' => ['cwebp'],
-//                'encoding' => 'lossless',
-                'jpeg' => [
-                    'default-quality' => 90,
-                ],
-            ];
-            try {
-                WebPConvert::convert($originalFile, $outputFile, $options, new ConsoleLogger($io));
-            } catch (ConversionFailedException $e) {
-                dump($e->getMessage());
-                dump($originalFile);
-            } catch (Exception $e) {
-                dump($e->getMessage());
-                dump($originalFile);
-            }
-            $progress->advance();
-        }
-        $progress->finish();
+//            $progress->advance();
+//        }
+//        $progress->finish();
 
         $io->title('GC orphaned webp');
         $finder = new Finder();
@@ -113,9 +113,9 @@ class ConvertToWebPCommand extends ContainerAwareCommand
             $png = str_replace(".{$file->getExtension()}", '.png', $originalFile);
 
             // Skip processing already processed images
-            if (!file_exists($jpg) && !file_exists($jpeg) && !file_exists($png)) {
+//            if (!file_exists($jpg) && !file_exists($jpeg) && !file_exists($png)) {
                 unlink($originalFile);
-            }
+//            }
             $progress->advance();
         }
         $progress->finish();
