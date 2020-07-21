@@ -75,7 +75,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
 //            }
 
             $options = [
-                'encoding' => 'cwebp',
+                'converters' => ['cwebp'],
             ];
             try {
                 WebPConvert::convert($originalFile, $outputFile, $options, new ConsoleLogger($io));
