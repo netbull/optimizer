@@ -76,8 +76,8 @@ class ConvertToWebPCommand extends ContainerAwareCommand
                 'jpeg' => [
                     'encoding' => 'lossless',     /* If you are worried about the longer conversion time, you could set it to "lossy" instead (lossy will often be smaller than lossless for jpegs) */
                     'quality' => 'auto',      /* Set to same as jpeg (requires imagick or gmagick extension, not necessarily compiled with webp) */
-                    'max-quality' => 80,      /* Only relevant if quality is set to "auto" */
-                    'default-quality' => 75,  /* Fallback quality if quality detection isnt working */
+                    'max-quality' => 95,      /* Only relevant if quality is set to "auto" */
+                    'default-quality' => 90,  /* Fallback quality if quality detection isnt working */
                 ]
             ];
             try {
