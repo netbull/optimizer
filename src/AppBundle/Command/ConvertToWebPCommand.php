@@ -74,13 +74,13 @@ class ConvertToWebPCommand extends ContainerAwareCommand
             }
 
             $options = [
-                'jpeg' => [
-                    'encoding' => 'lossless',     /* If you are worried about the longer conversion time, you could set it to "lossy" instead (lossy will often be smaller than lossless for jpegs) */
-                    'quality' => 100,      /* Set to same as jpeg (requires imagick or gmagick extension, not necessarily compiled with webp) */
-//                    'max-quality' => 95,      /* Only relevant if quality is set to "auto" */
-//                    'default-quality' => 90,  /* Fallback quality if quality detection isnt working */
-                    'converters' => ['imagick'],
-                ]
+//                'jpeg' => [
+//                    'encoding' => 'lossless',     /* If you are worried about the longer conversion time, you could set it to "lossy" instead (lossy will often be smaller than lossless for jpegs) */
+//                    'quality' => 100,      /* Set to same as jpeg (requires imagick or gmagick extension, not necessarily compiled with webp) */
+////                    'max-quality' => 95,      /* Only relevant if quality is set to "auto" */
+////                    'default-quality' => 90,  /* Fallback quality if quality detection isnt working */
+////                    'converters' => [],
+//                ]
             ];
             try {
                 WebPConvert::convert($originalFile, $outputFile, $options, new EchoLogger());
