@@ -47,7 +47,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         // In case of a symlink
         $path = realpath($path);
 
-        $path .= 'img/p/8/4/2/0/';
+        $path .= '/img/p/8/4/2/0/';
         $finder = new Finder();
 
         $io->title('Converting images');
