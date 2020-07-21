@@ -47,11 +47,12 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         // In case of a symlink
         $path = realpath($path);
 
+        $path .= 'img/p/8/4/2/0/';
         $finder = new Finder();
 
         $io->title('Converting images');
         $finder
-            ->in($path.'img/p/8/4/2/0/')
+            ->in($path)
             ->files()
             ->ignoreDotFiles(true)
 //            ->name('*.{jpg,jpeg,png,JPG,JPEG,PNG}')
