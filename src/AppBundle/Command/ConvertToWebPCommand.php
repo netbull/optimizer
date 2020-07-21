@@ -77,7 +77,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
             $options = [
                 'converters' => ['cwebp'],
                 'jpeg' => [
-                    'default-quality' => 85,
+                    'default-quality' => 100,
                 ],
             ];
             try {
