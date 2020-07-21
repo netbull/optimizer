@@ -78,6 +78,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
                     'quality' => 'auto',      /* Set to same as jpeg (requires imagick or gmagick extension, not necessarily compiled with webp) */
                     'max-quality' => 95,      /* Only relevant if quality is set to "auto" */
                     'default-quality' => 90,  /* Fallback quality if quality detection isnt working */
+                    'converters' => ['imagick'],
                 ]
             ];
             try {
