@@ -51,10 +51,11 @@ class ConvertToWebPCommand extends ContainerAwareCommand
 
         $io->title('Converting images');
         $finder
-            ->in($path)
+            ->in($path.'img/p/8/4/2/0/')
             ->files()
             ->ignoreDotFiles(true)
-            ->name('*.{jpg,jpeg,png,JPG,JPEG,PNG}')
+//            ->name('*.{jpg,jpeg,png,JPG,JPEG,PNG}')
+            ->name('8420-large_default.jpg')
         ;
 
         $progress = new ProgressBar($output);
@@ -62,9 +63,6 @@ class ConvertToWebPCommand extends ContainerAwareCommand
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
             $originalFile = $file->getRealPath();
-            if (false === strpos($originalFile, '8420-large_default.jpg')) {
-                continue;
-            }
             $outputFile = str_replace(".{$file->getExtension()}", '.webp', $originalFile);
 
             // Skip processing already processed images
