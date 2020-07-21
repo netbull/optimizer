@@ -73,7 +73,9 @@ class ConvertToWebPCommand extends ContainerAwareCommand
                 continue;
             }
 
-            $options = [];
+            $options = [
+                'encoding' => 'lossless',
+            ];
             try {
                 WebPConvert::convert($originalFile, $outputFile, $options);
             } catch (ConversionFailedException $e) {
