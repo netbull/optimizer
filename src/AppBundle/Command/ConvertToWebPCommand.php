@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use App\ConsoleLogger;
 use Exception;
 use WebPConvert\Convert\Exceptions\ConversionFailedException;
 use WebPConvert\Loggers\EchoLogger;
@@ -84,7 +85,7 @@ class ConvertToWebPCommand extends ContainerAwareCommand
                 ]
             ];
             try {
-                WebPConvert::convert($originalFile, $outputFile, $options, new EchoLogger());
+                WebPConvert::convert($originalFile, $outputFile, $options, new ConsoleLogger($io));
             } catch (ConversionFailedException $e) {
                 dump($e->getMessage());
                 dump($originalFile);
